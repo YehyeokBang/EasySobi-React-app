@@ -101,7 +101,7 @@ const Item = () => {
       const accessToken = localStorage.getItem("accessToken");
       try {
         const response = await axios.get(
-          `http://easysobi.duckdns.org/api/item/${id}`,
+          `${process.env.REACT_APP_BASE_URL}/api/item/${id}`,
           {
             headers: {
               Authorization: `Bearer ${accessToken}`,
