@@ -138,7 +138,7 @@ const EditItem = () => {
         }
       );
 
-      navigate("/mypage");
+      navigate(-1);
       // redirect to mypage
     } catch (error) {
       console.error(error);

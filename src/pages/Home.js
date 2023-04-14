@@ -10,7 +10,7 @@ const Container = styled.div`
 `;
 
 const Text = styled.p`
-  margin-top: 8rem;
+  margin-top: 4rem;
   color: #cacaca;
 `;
 
@@ -94,6 +94,8 @@ const Home = () => {
       {showComponent ? (
         <Container>
           <h1>EasySobi</h1>
+          <h3>쉬운 소비기한!</h3>
+          <h3>이지소비</h3>
           <Text>카카오로 시작하기</Text>
           <KakaoLoginBtn onClick={handleKakaoLogin}>
             <Img

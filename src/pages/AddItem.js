@@ -9,6 +9,10 @@ const Container = styled.div`
   align-items: center;
 `;
 
+const LabelText = styled.label`
+  margin-top: 0.5rem;
+`;
+
 const Input = styled.input`
   margin-top: 0.5rem;
   padding: 0.5rem;
@@ -27,7 +31,7 @@ const Button = styled.button`
   margin-top: 1rem;
   padding: 0.5rem 1rem;
   border: none;
-  background-color: #2196f3;
+  background-color: #96d2c8;
   color: white;
   border-radius: 0.25rem;
   cursor: pointer;
@@ -94,7 +98,7 @@ const EditItem = () => {
     const accessToken = localStorage.getItem("accessToken");
 
     if (!itemName) {
-      alert("아이템 이름을 입력해주세요.");
+      alert("식품 이름을 입력해주세요.");
       return;
     }
 
@@ -124,15 +128,15 @@ const EditItem = () => {
 
   return (
     <Container>
-      <h2>아이템 추가</h2>
-      <label htmlFor="name">아이템 이름</label>
+      <h2>식품 추가</h2>
+      <LabelText htmlFor="name">식품 이름</LabelText>
       <Input
         type="text"
         id="name"
         value={itemName}
         onChange={handleNameChange}
       />
-      <label htmlFor="categoryNum">카테고리</label>
+      <LabelText htmlFor="categoryNum">카테고리</LabelText>
       <Select
         id="categoryNum"
         value={categoryNum}
@@ -144,14 +148,14 @@ const EditItem = () => {
           </option>
         ))}
       </Select>
-      <label htmlFor="count">수량</label>
+      <LabelText htmlFor="count">수량</LabelText>
       <Input
         type="number"
         id="count"
         value={count}
         onChange={handleCountChange}
       />
-      <label htmlFor="mfgDate">제조일자</label>
+      <LabelText htmlFor="mfgDate">제조일자</LabelText>
       <Input
         type="datetime-local"
         id="mfgDate"

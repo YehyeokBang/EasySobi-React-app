@@ -13,6 +13,13 @@ const Title = styled.h2`
   margin-top: 5rem;
 `;
 
+const Text = styled.div`
+  margin-top: 6rem;
+  width: 26rem;
+  font-size: 1.2rem;
+  text-align: center;
+`;
+
 const Form = styled.form`
   display: flex;
   flex-direction: column;
@@ -26,17 +33,37 @@ const Input = styled.input`
 `;
 
 const Button = styled.button`
-  width: 7.5rem;
-  margin-top: 2rem;
-  padding: 0.5rem;
-`;
+  width: 6.5rem;
+  height: 2.3rem;
+  background-color: #96d2c8;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 0.9rem;
+  border-radius: 10px;
+  margin-top: 1rem;
+  cursor: pointer;
+  box-shadow: 1px 1px 5px gray;
 
+  &:hover {
+    box-shadow: 3px 3px 15px gray;
+  }
+`;
 const AddInventory = () => {
   const [inventoryName, setInventoryName] = useState("");
   const navigate = useNavigate();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+
+    if (!inventoryName) {
+      alert("보관함 이름을 입력해주세요.");
+      return;
+    }
+
     const accessToken = localStorage.getItem("accessToken");
     try {
       await axios.post(
@@ -48,7 +75,6 @@ const AddInventory = () => {
           },
         }
       );
-      alert("보관함이 추가되었습니다.");
       navigate("/mypage");
     } catch (error) {
       console.error(error);
@@ -68,6 +94,12 @@ const AddInventory = () => {
         />
         <Button type="submit">추가</Button>
       </Form>
+      <Text>
+        <h3>사용 Tips</h3>
+        식품을 보관하는 곳의 이름을 <br />
+        알아볼 수 있게 작성하세요! <br />
+        예) 냉장고, 회사 탕비실 등
+      </Text>
     </Container>
   );
 };

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import styled from "styled-components";
 import { useNavigate, useParams, Link } from "react-router-dom";
+import Modal from "react-modal";
 
 const Container = styled.div`
   display: flex;
@@ -19,6 +20,13 @@ const InventoryContainer = styled.div`
 
 const Text = styled.div`
   text-align: center;
+  font-size: 1.2rem;
+`;
+
+const TextPlus = styled.div`
+  text-align: center;
+  margin-top: 15rem;
+  font-size: 1.2rem;
 `;
 
 const ItemList = styled.ul`
@@ -33,7 +41,11 @@ const Item = styled(Link)`
   font-size: 1.1rem;
   color: black;
   text-decoration: none;
-  border: 1px solid gray;
+`;
+
+const ItemBorder = styled.div`
+  border: 2px solid gray;
+  padding: 1.3rem;
 `;
 
 const DeleteButton = styled.button`
@@ -116,7 +128,7 @@ const AddButton = styled.button`
   height: 4rem;
   right: 5%;
   bottom: 5%;
-  background-color: #eaeaea;
+  background-color: #96d2c8;
   color: black;
   border: none;
   padding: 0;
@@ -136,10 +148,78 @@ const AddButton = styled.button`
   }
 `;
 
+const customStyles = {
+  content: {
+    top: "35vh",
+    left: "22vw",
+    right: "22vw",
+    bottom: "45vh",
+    borderRadius: "15px",
+  },
+};
+
+const TextDelete = styled.div`
+  text-align: center;
+  font-size: 1.1rem;
+  margin-top: 1.2rem;
+`;
+
+const OkButton = styled.button`
+  position: absolute;
+  bottom: 0.8rem;
+  left: 2rem;
+  width: 6.5rem;
+  height: 2.3rem;
+  background-color: #fe2348;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 0.8rem;
+  border-radius: 10px;
+  margin-top: 1rem;
+  cursor: pointer;
+  box-shadow: 2px 2px 10px gray;
+
+  &:hover {
+    box-shadow: 3px 3px 15px gray;
+  }
+`;
+
+const NoButton = styled.button`
+  position: absolute;
+  bottom: 0.8rem;
+  right: 2rem;
+  width: 6.5rem;
+  height: 2.3rem;
+  background-color: #888888;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 0.8rem;
+  border-radius: 10px;
+  margin-top: 1rem;
+  cursor: pointer;
+  box-shadow: 2px 2px 10px gray;
+
+  &:hover {
+    box-shadow: 3px 3px 15px gray;
+  }
+`;
+
 const Inventory = () => {
   const params = useParams();
   const [inventory, setInventory] = useState(null);
+  const [itemList, setItemList] = useState([]);
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+
   const navigate = useNavigate();
+
   useEffect(() => {
     const id = params.id;
     const getInventory = async () => {
@@ -154,6 +234,7 @@ const Inventory = () => {
           }
         );
         setInventory(response.data);
+        setItemList(response.data.itemList);
       } catch (error) {
         console.error(error);
       }
@@ -165,6 +246,7 @@ const Inventory = () => {
   const handleDelete = async () => {
     const id = params.id;
     const accessToken = localStorage.getItem("accessToken");
+
     try {
       await axios.patch(
         `${process.env.REACT_APP_BASE_URL}/api/inventory/${id}`,
@@ -175,10 +257,6 @@ const Inventory = () => {
           },
         }
       );
-
-      if (!window.confirm("정말 삭제하시겠습니까?")) {
-        return;
-      }
 
       navigate("/mypage");
       // redirect to inventory list page
@@ -206,16 +284,34 @@ const Inventory = () => {
   return (
     <Container>
       <InventoryTitle>{inventory.inventoryName}</InventoryTitle>
+      <Modal
+        isOpen={modalIsOpen}
+        onRequestClose={() => setModalIsOpen(false)}
+        style={customStyles}
+      >
+        <TextDelete>정말 삭제하시겠습니까?</TextDelete>
+        <OkButton onClick={handleDelete}>확인</OkButton>
+        <NoButton onClick={() => setModalIsOpen(false)}>취소</NoButton>
+      </Modal>
       <InventoryContainer>
-        <Text>제품 목록</Text>
+        {itemList.length === 0 ? (
+          <TextPlus>아래의 + 버튼을 사용하여 식품을 추가하세요.</TextPlus>
+        ) : (
+          <Text>제품 목록</Text>
+        )}
         <ItemList>
           {inventory.itemList.map((item) => (
             <Item key={item.id} to={`/item/${item.id}`}>
-              {item.name} ({item.count}개) 소비기한: {item.expDate} <br />
+              <ItemBorder>
+                {item.name} ({item.count}개) 소비기한: {item.expDate}
+              </ItemBorder>{" "}
+              <br />
             </Item>
           ))}
         </ItemList>
-        <DeleteButton onClick={handleDelete}>보관함 삭제</DeleteButton>
+        <DeleteButton onClick={() => setModalIsOpen(true)}>
+          보관함 삭제
+        </DeleteButton>
         <EditButton onClick={handleEdit}>보관함 수정</EditButton>
         <AddButton onClick={handleAddItem}>+</AddButton>
         <GoHome onClick={handleHome}>🏠︎</GoHome>

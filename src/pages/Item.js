@@ -2,11 +2,18 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import styled from "styled-components";
 import { useNavigate, useParams } from "react-router-dom";
+import Modal from "react-modal";
 
 const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-top: 5rem;
+`;
+
+const Noti = styled.div`
+  text-align: center;
+  margin-top: 5rem;
 `;
 
 const ItemContainer = styled.div`
@@ -14,6 +21,7 @@ const ItemContainer = styled.div`
 `;
 
 const ItemName = styled.h4`
+  font-size: 1.4rem;
   margin-top: 0.5rem;
 `;
 
@@ -59,9 +67,75 @@ const GoHome = styled.button`
   }
 `;
 
+const customStyles = {
+  content: {
+    top: "35vh",
+    left: "22vw",
+    right: "22vw",
+    bottom: "45vh",
+    borderRadius: "15px",
+  },
+};
+
+const TextDelete = styled.div`
+  text-align: center;
+  font-size: 1.1rem;
+  margin-top: 1.2rem;
+`;
+
+const OkButton = styled.button`
+  position: absolute;
+  bottom: 0.8rem;
+  left: 2rem;
+  width: 6.5rem;
+  height: 2.3rem;
+  background-color: #fe2348;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 0.8rem;
+  border-radius: 10px;
+  margin-top: 1rem;
+  cursor: pointer;
+  box-shadow: 2px 2px 10px gray;
+
+  &:hover {
+    box-shadow: 3px 3px 15px gray;
+  }
+`;
+
+const NoButton = styled.button`
+  position: absolute;
+  bottom: 0.8rem;
+  right: 2rem;
+  width: 6.5rem;
+  height: 2.3rem;
+  background-color: #888888;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 0.8rem;
+  border-radius: 10px;
+  margin-top: 1rem;
+  cursor: pointer;
+  box-shadow: 2px 2px 10px gray;
+
+  &:hover {
+    box-shadow: 3px 3px 15px gray;
+  }
+`;
+
 const Item = () => {
   const params = useParams();
   const [item, setItem] = useState(null);
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+
   const navigate = useNavigate();
 
   const categories = [
@@ -120,6 +194,7 @@ const Item = () => {
   const handleDelete = async () => {
     const id = params.id;
     const accessToken = localStorage.getItem("accessToken");
+
     try {
       await axios.patch(
         `${process.env.REACT_APP_BASE_URL}/api/item/${id}`,
@@ -131,11 +206,7 @@ const Item = () => {
         }
       );
 
-      if (!window.confirm("정말 삭제하시겠습니까?")) {
-        return;
-      }
-
-      navigate(`/mypage`);
+      navigate(-1);
       // redirect to inventory list page
     } catch (error) {
       console.error(error);
@@ -152,16 +223,34 @@ const Item = () => {
 
   return (
     <Container>
+      <Modal
+        isOpen={modalIsOpen}
+        onRequestClose={() => setModalIsOpen(false)}
+        style={customStyles}
+      >
+        <TextDelete>정말 삭제하시겠습니까?</TextDelete>
+        <OkButton onClick={handleDelete}>확인</OkButton>
+        <NoButton onClick={() => setModalIsOpen(false)}>취소</NoButton>
+      </Modal>
       <ItemName>{item.name}</ItemName>
       <ItemContainer>
         <div>카테고리: {categories[item.categoryNum].categoryName}</div>
         <div>개수: {item.count}</div>
         <div>제조일자: {item.mfgDate}</div>
         <div>소비기한: {item.expDate}</div>
-        <DeleteButton onClick={handleDelete}>아이템 삭제</DeleteButton>
-        <EditButton onClick={handleEdit}>아이템 수정</EditButton>
+        <DeleteButton onClick={() => setModalIsOpen(true)}>
+          식품 삭제
+        </DeleteButton>
+        <EditButton onClick={handleEdit}>정보 수정</EditButton>
         <GoHome onClick={handleHome}>홈으로</GoHome>
       </ItemContainer>
+      <Noti>
+        <h3>소비기한 Tips</h3>
+        소비기한은 까다로운 실험을 통해 <br />
+        산출된 결과이지만, <br />
+        소비자의 보관 방법 또는 <br />
+        식품 종류에 따라 달라질 수 있습니다.
+      </Noti>
     </Container>
   );
 };
