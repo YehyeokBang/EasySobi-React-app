@@ -100,8 +100,8 @@ const TextLogout = styled.div`
 const LogoutOkButton = styled.button`
   position: absolute;
   bottom: 0.8rem;
-  left: 2rem;
-  width: 6.5rem;
+  left: 1rem;
+  width: 4.5rem;
   height: 2.3rem;
   background-color: #fe2348;
   color: white;
@@ -124,8 +124,8 @@ const LogoutOkButton = styled.button`
 const LogoutNoButton = styled.button`
   position: absolute;
   bottom: 0.8rem;
-  right: 2rem;
-  width: 6.5rem;
+  right: 1rem;
+  width: 4.5rem;
   height: 2.3rem;
   background-color: #888888;
   color: white;

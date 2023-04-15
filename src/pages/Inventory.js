@@ -167,8 +167,8 @@ const TextDelete = styled.div`
 const OkButton = styled.button`
   position: absolute;
   bottom: 0.8rem;
-  left: 2rem;
-  width: 6.5rem;
+  left: 1rem;
+  width: 4.5rem;
   height: 2.3rem;
   background-color: #fe2348;
   color: white;
@@ -191,8 +191,8 @@ const OkButton = styled.button`
 const NoButton = styled.button`
   position: absolute;
   bottom: 0.8rem;
-  right: 2rem;
-  width: 6.5rem;
+  right: 1rem;
+  width: 4.5rem;
   height: 2.3rem;
   background-color: #888888;
   color: white;
