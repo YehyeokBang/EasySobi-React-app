@@ -2,7 +2,7 @@
 
 ## Info
 
-[EasySobi REST API]를 이용한 프론트엔드 프로젝트  
+[EasySobi REST API](https://github.com/YehyeokBang/EasySobi-Server)를 이용한 프론트엔드 프로젝트  
 쉬운 <b>소비기한</b> 관리 서비스
 
 ## 소비기한이란?
