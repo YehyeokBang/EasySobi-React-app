@@ -9,7 +9,9 @@ import EditInventory from "./pages/EditInventory";
 import Item from "./pages/Item";
 import EditItem from "./pages/EditItem";
 import AddItem from "./pages/AddItem";
+import "./firebase-messaging-sw.js";
 
+// path로 이동하면 element를 실행
 const router = createBrowserRouter([
   {
     path: "/",
