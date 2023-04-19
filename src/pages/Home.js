@@ -66,7 +66,7 @@ const Home = () => {
         EASYSOBI_LOGIN_API_URL,
         {
           kakaoToken: accessToken,
-          fcmToken: "12341234",
+          fcmToken: localStorage.getItem("fcmToken"),
         },
         {
           headers: {
