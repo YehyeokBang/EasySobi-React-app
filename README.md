@@ -10,7 +10,7 @@
 기존 식품의 판매 허용 기한인 유통기한은 영업자 중심의 기한이었습니다.  
 하지만 소비기한은 보관 방법 준수 시 안전하게 섭취 가능한
 기한을 알려주는 소비자 중심의 기한 표시제입니다.  
-유통기한보다 소비기한이 더 길거나 같을 수 있습니다.
+유통기한은 '품질안전한계기간'의 60~70% 시점 소비기한은 80~90% 시점으로 설정하며, 정확한 유통, 소비기한은 제품별 특성에 맞는 실험을 거쳐 설정하게 됩니다.
 
 ## 기대
 
@@ -20,7 +20,9 @@
 ## 제작
 
 React를 사용하여 제작했습니다.  
-Kakao javascript용 SDK와 REST API를 사용하여 카카오 회원가입 및 로그인 기능을 구현했습니다.
+Axios 라이브러리를 사용하여 서버와 HTTP 통신을 구성했습니다.  
+Kakao javascript용 SDK와 REST API를 사용하여 카카오 회원가입 및 로그인 기능을 구현했습니다.  
+FCM을 사용하여 Web Push 알림을 구현했습니다.
 
 ## 기능
 
@@ -67,7 +69,7 @@ Kakao javascript용 SDK와 REST API를 사용하여 카카오 회원가입 및 �
 <summary>식품</summary>
 
 - 보관함 내 식품 조회/생성/수정/삭제
-- 식품 소비기한 만료시 Push 알람(준비 중)
+- 식품 소비기한 만료시 Push 알림(준비 중)
 
 1. 보관함 화면 (조회)  
    <img src="img/inventory.png" alt="inventoryImg" width=310 height=460></br>
@@ -84,11 +86,11 @@ Kakao javascript용 SDK와 REST API를 사용하여 카카오 회원가입 및 �
 
 javascript용 SDK를 사용하여 카카오 로그인을 구현했습니다.
 
-## Firebase Cloud Messaging
+## Firebase Cloud Messaging (FCM)
 
-FCM을 사용하여 Web Push 알람을 구현했습니다.
+FCM을 사용하여 Web Push 알림을 구현했습니다.
 
-> 현재는 보관함 삭제 시 특정 보관함이 삭제되었다는 Push 알람을 받게 됩니다.
+> 현재는 보관함 삭제 시 특정 보관함이 삭제되었다는 Push 알림을 받게 됩니다.
 
 ## Deploy
 
