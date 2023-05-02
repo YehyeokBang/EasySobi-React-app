@@ -48,7 +48,7 @@ const EditItem = () => {
   const [itemName, setItemName] = useState("");
   const [categoryNum, setCategoryNum] = useState(1);
   const [count, setCount] = useState(0);
-  const [mfgDate, setMfgDate] = useState("2023-04-13T12:34:56.789");
+  const [mfgDate, setMfgDate] = useState("2023-05-03T18:30:00.000");
 
   const categories = [
     { categoryNum: 1, categoryName: "가공유" },
