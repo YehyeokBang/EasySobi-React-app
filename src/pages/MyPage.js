@@ -85,6 +85,32 @@ const LogoutButton = styled.button`
   }
 `;
 
+const AcceptButton = styled(Link)`
+  position: absolute;
+  padding: 0px;
+  top: 0;
+  left: 1rem;
+  width: 6.5rem;
+  height: 2.3rem;
+  background-color: #afeabf;
+  color: white;
+  border: none;
+  text-align: center;
+  text-decoration: none;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 0.8rem;
+  border-radius: 10px;
+  margin-top: 1rem;
+  cursor: pointer;
+  box-shadow: 2px 2px 10px gray;
+
+  &:hover {
+    box-shadow: 3px 3px 15px gray;
+  }
+`;
+
 const Text = styled.div`
   text-align: center;
   font-size: 1.1rem;
@@ -237,6 +263,7 @@ const MyPage = () => {
           <></>
         )}
         <AddInventoryButton to="/inventory/add">+</AddInventoryButton>
+        <AcceptButton to="/share/list">요청 목록</AcceptButton>
         <LogoutButton onClick={() => setModalIsOpen(true)}>
           로그아웃
         </LogoutButton>

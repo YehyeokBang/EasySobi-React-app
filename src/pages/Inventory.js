@@ -148,6 +148,33 @@ const AddButton = styled.button`
   }
 `;
 
+const ShareButton = styled.button`
+  position: fixed;
+  width: 4rem;
+  height: 4rem;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 5%;
+  background-color: #aeaeae;
+  color: black;
+  border: none;
+  padding: 0;
+  text-align: center;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.2rem;
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 2px 2px 10px gray;
+  line-height: 4rem;
+
+  &:hover {
+    box-shadow: 3px 3px 15px gray;
+  }
+`;
+
 const customStyles = {
   content: {
     top: "35vh",
@@ -157,6 +184,16 @@ const customStyles = {
     borderRadius: "15px",
   },
 };
+
+const StyledInput = styled.input`
+  width: 100%;
+  height: 2.3rem;
+  padding: 0.5rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-top: 0.5rem;
+`;
 
 const TextDelete = styled.div`
   text-align: center;
@@ -216,7 +253,9 @@ const Inventory = () => {
   const params = useParams();
   const [inventory, setInventory] = useState(null);
   const [itemList, setItemList] = useState([]);
-  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [deleteModalIsOpen, setDeleteModalIsOpen] = useState(false);
+  const [shareModalIsOpen, setShareModalIsOpen] = useState(false);
+  const [email, setEmail] = useState("");
 
   const navigate = useNavigate();
 
@@ -273,6 +312,28 @@ const Inventory = () => {
     navigate(`/item/add/${params.id}`);
   };
 
+  const handleShareInventory = async () => {
+    const id = params.id;
+    const accessToken = localStorage.getItem("accessToken");
+
+    try {
+      await axios.post(
+        `${process.env.REACT_APP_BASE_URL}/api/share`,
+        {
+          email: email,
+          inventoryId: id,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        }
+      );
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   const handleHome = () => {
     navigate(`/mypage`);
   };
@@ -285,13 +346,28 @@ const Inventory = () => {
     <Container>
       <InventoryTitle>{inventory.inventoryName}</InventoryTitle>
       <Modal
-        isOpen={modalIsOpen}
-        onRequestClose={() => setModalIsOpen(false)}
+        isOpen={deleteModalIsOpen}
+        onRequestClose={() => setDeleteModalIsOpen(false)}
         style={customStyles}
       >
         <TextDelete>정말 삭제하시겠습니까?</TextDelete>
         <OkButton onClick={handleDelete}>확인</OkButton>
-        <NoButton onClick={() => setModalIsOpen(false)}>취소</NoButton>
+        <NoButton onClick={() => setDeleteModalIsOpen(false)}>취소</NoButton>
+      </Modal>
+      <Modal
+        isOpen={shareModalIsOpen}
+        onRequestClose={() => setShareModalIsOpen(false)}
+        style={customStyles}
+      >
+        <div>
+          <TextDelete>공유하려는 유저의 이메일을 작성해주세요.</TextDelete>
+          <StyledInput>
+            type="email" value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          </StyledInput>
+        </div>
+        <OkButton onClick={handleShareInventory}>확인</OkButton>
+        <NoButton onClick={() => setShareModalIsOpen(false)}>취소</NoButton>
       </Modal>
       <InventoryContainer>
         {itemList.length === 0 ? (
@@ -309,11 +385,12 @@ const Inventory = () => {
             </Item>
           ))}
         </ItemList>
-        <DeleteButton onClick={() => setModalIsOpen(true)}>
+        <DeleteButton onClick={() => setDeleteModalIsOpen(true)}>
           보관함 삭제
         </DeleteButton>
         <EditButton onClick={handleEdit}>보관함 수정</EditButton>
         <AddButton onClick={handleAddItem}>+</AddButton>
+        <ShareButton onClick={() => setShareModalIsOpen(true)}>⇫</ShareButton>
         <GoHome onClick={handleHome}>🏠︎</GoHome>
       </InventoryContainer>
     </Container>
