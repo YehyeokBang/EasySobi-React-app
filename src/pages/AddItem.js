@@ -98,7 +98,7 @@ const EditItem = () => {
     const accessToken = localStorage.getItem("accessToken");
 
     if (!itemName) {
-      alert("식품 이름을 입력해주세요.");
+      alert("식품 이름을 입력해주세요");
       return;
     }
 

@@ -60,7 +60,7 @@ const AddInventory = () => {
     event.preventDefault();
 
     if (!inventoryName) {
-      alert("보관함 이름을 입력해주세요.");
+      alert("보관함 이름을 입력해주세요");
       return;
     }
 
@@ -78,7 +78,7 @@ const AddInventory = () => {
       navigate("/mypage");
     } catch (error) {
       console.error(error);
-      alert("보관함 추가에 실패했습니다.");
+      alert("보관함 추가에 실패했습니다");
     }
   };
 
@@ -88,7 +88,7 @@ const AddInventory = () => {
       <Form onSubmit={handleSubmit}>
         <Input
           type="text"
-          placeholder="보관함 이름을 입력하세요."
+          placeholder="보관함 이름을 입력하세요"
           value={inventoryName}
           onChange={(event) => setInventoryName(event.target.value)}
         />

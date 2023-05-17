@@ -45,7 +45,7 @@ const EditInventory = () => {
     const accessToken = localStorage.getItem("accessToken");
 
     if (!inventoryName) {
-      alert("보관함 이름을 입력해주세요.");
+      alert("보관함 이름을 입력해주세요");
       return;
     }
 
