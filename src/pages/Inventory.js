@@ -185,9 +185,18 @@ const customStyles = {
   },
 };
 
+const customStyles2 = {
+  content: {
+    top: "31vh",
+    left: "22vw",
+    right: "22vw",
+    bottom: "43vh",
+    borderRadius: "15px",
+  },
+};
+
 const StyledInput = styled.input`
-  width: 100%;
-  height: 2.3rem;
+  height: 1.6rem;
   padding: 0.5rem;
   font-size: 1rem;
   border: 1px solid #ccc;
@@ -199,6 +208,11 @@ const TextDelete = styled.div`
   text-align: center;
   font-size: 1.1rem;
   margin-top: 1.2rem;
+`;
+
+const TextShare = styled.div`
+  text-align: center;
+  font-size: 1.1rem;
 `;
 
 const OkButton = styled.button`
@@ -298,7 +312,6 @@ const Inventory = () => {
       );
 
       navigate("/mypage");
-      // redirect to inventory list page
     } catch (error) {
       console.error(error);
     }
@@ -329,6 +342,8 @@ const Inventory = () => {
           },
         }
       );
+
+      setShareModalIsOpen(false);
     } catch (error) {
       console.error(error);
     }
@@ -357,21 +372,27 @@ const Inventory = () => {
       <Modal
         isOpen={shareModalIsOpen}
         onRequestClose={() => setShareModalIsOpen(false)}
-        style={customStyles}
+        style={customStyles2}
       >
         <div>
-          <TextDelete>공유하려는 유저의 이메일을 작성해주세요.</TextDelete>
-          <StyledInput>
-            type="email" value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          </StyledInput>
+          <TextShare>
+            공유하기
+            <br />
+            <br />
+            이메일을 작성해주세요
+            <StyledInput
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+          </TextShare>
         </div>
         <OkButton onClick={handleShareInventory}>확인</OkButton>
         <NoButton onClick={() => setShareModalIsOpen(false)}>취소</NoButton>
       </Modal>
       <InventoryContainer>
         {itemList.length === 0 ? (
-          <TextPlus>아래의 + 버튼을 사용하여 식품을 추가하세요.</TextPlus>
+          <TextPlus>아래의 + 버튼을 사용하여 식품을 추가하세요</TextPlus>
         ) : (
           <Text>제품 목록</Text>
         )}

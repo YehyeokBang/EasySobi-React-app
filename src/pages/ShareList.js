@@ -3,7 +3,6 @@ import axios from "axios";
 import styled from "styled-components";
 import { useNavigate, Link } from "react-router-dom";
 import Modal from "react-modal";
-import Inventory from "./Inventory";
 
 const Container = styled.div`
   display: flex;
@@ -45,6 +44,7 @@ const Inven = styled(Link)`
 `;
 
 const InventoryBorder = styled.div`
+  width: 320px;
   border: 2px solid gray;
   padding: 1.3rem;
 `;
@@ -180,6 +180,8 @@ const ShareList = () => {
             },
           }
         );
+
+        setModalIsOpen(false);
       } catch (error) {
         console.error(error);
       }
@@ -227,9 +229,7 @@ const ShareList = () => {
               key={inventory.inventoryId}
               onClick={() => openModal(inventory)}
             >
-              <InventoryBorder>
-                {inventory.userId} - {inventory.inventoryId}
-              </InventoryBorder>
+              <InventoryBorder>{inventory.inventoryName}</InventoryBorder>
               <br />
             </Inven>
           ))}
