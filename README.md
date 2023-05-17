@@ -80,6 +80,22 @@ FCM을 사용하여 Web Push 알림을 구현했습니다.
    <img src="img/updateItem.png" alt="updateItemImg" width=310 height=280></br>
 4. 삭제  
 <img src="img/deleteItem.png" alt="deleteItemImg" width=310 height=380></br>
+</details>
+
+<details>
+<summary>보관함 공유</summary>
+
+- 상대의 카카오 계정 이메일로 보관함 공유하기
+- 카카오 메시지를 이용한 공유 기능 (미완성)
+
+1. 보관함 공유 버튼 (가운데 하단 버튼)  
+   <img src="img/shareInven.png" alt="inventoryImg" width=310 height=460></br>
+2. 이메일 작성 후 공유  
+   <img src="img/shareInven2.png" alt="itemImg" width=310 height=460></br>
+3. 공유받은 요청 조회 (좌측 상단 버튼)  
+   <img src="img/shareMyPage.png" alt="createItemImg" width=310 height=460></br>
+4. 목록에서 수락 시 공유 완료  
+ <img src="img/shareAccept.png" alt="updateItemImg" width=310 height=460></br>
 </details><br />
 
 ## Kakao Auth
