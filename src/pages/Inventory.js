@@ -411,7 +411,9 @@ const Inventory = () => {
         </DeleteButton>
         <EditButton onClick={handleEdit}>보관함 수정</EditButton>
         <AddButton onClick={handleAddItem}>+</AddButton>
-        <ShareButton onClick={() => setShareModalIsOpen(true)}>⇫</ShareButton>
+        <ShareButton onClick={() => setShareModalIsOpen(true)}>
+          &gt;
+        </ShareButton>
         <GoHome onClick={handleHome}>🏠︎</GoHome>
       </InventoryContainer>
     </Container>
